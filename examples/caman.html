@@ -273,20 +273,17 @@
 										FileAPI.Image(processedImage)							
 										.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
 										.get(function(oerr, oimg){
+											processedImage = oimg;
+											
 											if (msg != '') {
 												var msgfilename = "fb_" + msg + ".png"
-												FileAPI.Image(oimg)
+												FileAPI.Image(processedImage)
 												.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
 												.get(function(merr, mimg){
 													processedImage = mimg;
 													
 													console.log("OVERLAY");
 												});
-											}
-											else
-											{								
-												processedImage = oimg;
-												console.log("NO OVERLAY");
 											}
 											
 											result.innerHTML = '';
