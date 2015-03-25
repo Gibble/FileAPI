@@ -200,8 +200,8 @@
 						FileAPI.Image(file)
 							.crop(smallDim, smallDim)
 							.resize(504, 504)
-							.filter(filter)
 							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
+							.filter(filter)
 							.get(function (err, img){
 								result.innerHTML = '';
 								result.appendChild(img);
