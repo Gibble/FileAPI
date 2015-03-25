@@ -192,24 +192,27 @@
 				var smallDim = 0;
 				FileAPI.getInfo(file, function(err, info){
 					if (!err) {
-						console.log(info);
-						console.log(info.width);
+						smallDim = info.width;
+						if (smallDim > info.height) {
+							smallDim = info.height;
+						}
+				
+						FileAPI.Image(file)
+							.crop(smallDim, smallDim)
+							.resize(504, 504)
+							.filter(filter)
+							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
+							.get(function (err, img){
+								result.innerHTML = '';
+								result.appendChild(img);
+
+								if( processing ){
+									processing.el.innerHTML = processing.html;
+									processing = false;
+								}
+						});
 					}
 				});
-				
-				FileAPI.Image(file)
-					.resize(504, 504, 'max')
-					.filter(filter)
-					.get(function (err, img){
-						result.innerHTML = '';
-						result.appendChild(img);
-
-						if( processing ){
-							processing.el.innerHTML = processing.html;
-							processing = false;
-						}
-					})
-				;
 			}
 		})();
 	</script>
