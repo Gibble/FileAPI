@@ -240,47 +240,62 @@
 				output.style.display = '';
 
 				var smallDim = 0;
+				var halfDim = 0;
 				FileAPI.getInfo(file, function(err, info){
 					if (!err) {
 						smallDim = info.width;
 						if (smallDim > info.height) {
 							smallDim = info.height;
 						}
-				
-						FileAPI.Image(file)						
-						.resize(504, 504, 'min')
-						.filter(filter)
-						.get(function (err, img){
-							FileAPI.Image(img)							
-							.crop(504, 504)	
-							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
-							.get(function(oerr, oimg){
-								if (msg != '') {
-									var msgfilename = "fb_" + msg + ".png"
-									FileAPI.Image(oimg)
-									.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
-									.get(function(merr, mimg){
-										result.innerHTML = '';
-										result.appendChild(mimg);
-
-										if( processing ){
-											processing.el.innerHTML = processing.html;
-											processing = false;
-										}
-									});
-								}
-								else
-								{								
-									result.innerHTML = '';
-									result.appendChild(oimg);
-
-									if( processing ){
-										processing.el.innerHTML = processing.html;
-										processing = false;
-									}
-								}
-							});
+						halfDim = smallDim / 2;
+						var x = (info.width / 2) - halfDim;
+						var y = (info.height / 2) - halfDim;
+						
+						var processedImage;
+						
+						FileAPI.Image(file)
+						.crop(x, y, smallDim, smallDim)
+						.get(function(croperr, cropimg){
+							if(!croperr)
+							{
+								processedImage = cropimg;
+							}
 						});
+						
+						FileAPI.Image(processedImage)
+						.resize(504, 504)	
+						.filter(filter)
+						.get(function(resizeerr, resizeimg){
+							if(!resizeerr)
+							{
+								processedImage = resizeimg;
+							}
+						});
+				
+						FileAPI.Image(processedImage)							
+						.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
+						.get(function(oerr, oimg){
+							if (msg != '') {
+								var msgfilename = "fb_" + msg + ".png"
+								FileAPI.Image(oimg)
+								.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
+								.get(function(merr, mimg){
+									processedImage = mimg;
+								});
+							}
+							else
+							{								
+								processedImage = oimg;
+							}
+						});
+						
+						result.innerHTML = '';
+						result.appendChild(processedImage);
+
+						if( processing ){
+							processing.el.innerHTML = processing.html;
+							processing = false;
+						}
 						
 					}
 				});
