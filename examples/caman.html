@@ -198,23 +198,23 @@
 						}
 				
 						FileAPI.Image(file)
-							.crop(smallDim, smallDim)
-							.resize(504, 504)
-							.filter(filter)
-							.get(function (err, img){
-								FileAPI.Image(img)
-								.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
-								.get(function (overlayerr, overlayimg) {								
-									result.innerHTML = '';
-									result.appendChild(overlayimg);
+						.crop(smallDim, smallDim)
+						.resize(504, 504)
+						.filter(filter)
+						.get(function (err, img){
+							FileAPI.Image(img)
+							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
+							.get(function(oerr, oimg){								
+								result.innerHTML = '';
+								result.appendChild(oimg);
 
-									if( processing ){
-										processing.el.innerHTML = processing.html;
-										processing = false;
-									}
-								}
-							
+								if( processing ){
+									processing.el.innerHTML = processing.html;
+									processing = false;
+								}								
+							});
 						});
+						
 					}
 				});
 			}
