@@ -248,8 +248,8 @@
 							smallDim = info.height;
 						}
 						halfDim = smallDim / 2;
-						var x = 0;//(info.width / 2) - halfDim;
-						var y = 0;//(info.height / 2) - halfDim;
+						var x = (info.width / 2) - halfDim;
+						var y = (info.height / 2) - halfDim;
 						
 						var processedImage;
 						
@@ -260,42 +260,39 @@
 							{
 								processedImage = cropimg;
 								console.log("CROPPED: " + smallDim + " at: " + x + "," + y);
+								
+								FileAPI.Image(processedImage)
+								.resize(504, 504, 'min')	
+								.filter(filter)
+								.get(function(resizeerr, resizeimg){
+									if(!resizeerr)
+									{
+										processedImage = resizeimg;
+										console.log("Resized: " + 504);
+										
+										FileAPI.Image(processedImage)							
+										.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
+										.get(function(oerr, oimg){
+											if (msg != '') {
+												var msgfilename = "fb_" + msg + ".png"
+												FileAPI.Image(oimg)
+												.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
+												.get(function(merr, mimg){
+													processedImage = mimg;
+													
+													console.log("OVERLAY");
+												});
+											}
+											else
+											{								
+												processedImage = oimg;
+												console.log("NO OVERLAY");
+											}
+										});										
+									}
+								});								
 							}
 						});
-						console.log("DONE CROP");
-						
-						FileAPI.Image(processedImage)
-						.resize(504, 504, 'min')	
-						.filter(filter)
-						.get(function(resizeerr, resizeimg){
-							if(!resizeerr)
-							{
-								processedImage = resizeimg;
-								console.log("Resized: " + 504);
-							}
-						});
-						console.log("DONE RESIZE");
-				
-						FileAPI.Image(processedImage)							
-						.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
-						.get(function(oerr, oimg){
-							if (msg != '') {
-								var msgfilename = "fb_" + msg + ".png"
-								FileAPI.Image(oimg)
-								.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
-								.get(function(merr, mimg){
-									processedImage = mimg;
-									
-									console.log("OVERLAY");
-								});
-							}
-							else
-							{								
-								processedImage = oimg;
-								console.log("NO OVERLAY");
-							}
-						});
-						console.log("DONE OVERLAY");
 						
 						result.innerHTML = '';
 						result.appendChild(processedImage);
