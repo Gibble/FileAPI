@@ -110,6 +110,7 @@
 			<a data-preset="hemingway">Hemingway</a>
 			<a data-preset="concentrate">Concentrate</a>
 		</div>
+		<br />
 		<div id="PresetMessages">
 			<a data-preset="" class="Active">No Message</a>
 			<a data-preset="00">I AM IMPORTANT</a>
@@ -228,6 +229,10 @@
 			});
 
 			function _applyFilter(loading){
+				
+				console.log("FILTER: " + filter);
+				console.log("MSG: " + msg);
+			
 				if( loading ){
 					result.innerHTML = '<div class="loader"></div>';
 				}
@@ -249,7 +254,6 @@
 							FileAPI.Image(img)
 							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
 							.get(function(oerr, oimg){
-								
 								if (msg != '') {
 									var msgfilename = "fb_" + msg + ".png"
 									FileAPI.Image(oimg)
