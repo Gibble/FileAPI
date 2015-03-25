@@ -274,6 +274,7 @@
 										.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
 										.get(function(oerr, oimg){
 											processedImage = oimg;
+											console.log("OVERLAY");
 											
 											if (msg != '') {
 												var msgfilename = "fb_" + msg + ".png"
@@ -282,7 +283,7 @@
 												.get(function(merr, mimg){
 													processedImage = mimg;
 													
-													console.log("OVERLAY");
+													console.log("MSG OVERLAY");
 												});
 											}
 											
