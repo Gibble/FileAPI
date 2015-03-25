@@ -99,6 +99,27 @@
 			#PresetPositions a.Active {
 				background-color: #FF42A7;
 			}
+			
+		#PresetTemplates a {
+			border-radius: 3px;
+			-webkit-transition: background-color .3s ease-out;
+			-moz-transition: background-color .3s ease-out;
+			transition: background-color .3s ease-out;
+			background-color: #3A4289;
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 8px 10px;
+			color: #f8f8f2;
+			margin: 5px;
+			border: none;
+			font-size: 13px;
+			width: 120px;
+			cursor: pointer;
+		}
+			#PresetTemplates a.Active {
+				background-color: #AE4289;
+			}
 	</style>
 
 </head>
@@ -140,10 +161,9 @@
 			<a data-preset="03">I AM HUMAN, LIKE YOU.</a>
 			<a data-preset="04">LEARN. DON'T HATE.</a>
 			<a data-preset="05">ALLY</a>
-		</div>
-		
+		</div>		
 		<br />
-		<div id="PresetPositions" style="clear: both; max-width: 480;">
+		<div id="PresetPositions" style="clear: both; width: 480px; margin: 0 auto;">
 			<a data-preset="tl">Top Left</a>
 			<a data-preset="tc">Top Center</a>
 			<a data-preset="tr">Top Right</a>
@@ -153,6 +173,11 @@
 			<a data-preset="bl">Bottom Left</a>
 			<a data-preset="bc">Bottom Center</a>
 			<a data-preset="br">Bottom Right</a>
+		</div>		
+		<br />
+		<div id="PresetTemplates" style="clear: both; width: 160x; margin: 0 auto;">
+			<a data-preset="fb" class="Active">Facebook</a>
+			<a data-preset="t">Twitter</a>
 		</div>
 	</div>
 
@@ -173,8 +198,6 @@
 		</div>
 	</div>
 
-
-
 	<script>
 		(function (){
 			var
@@ -182,7 +205,8 @@
 				, webcam // current Camera
 				, filter = '' // default filter
 				, msg = '' // default message
-				, pos = 'c'
+				, pos = "c"
+				, template = "fb"
 				, processing = false
 			;
 
@@ -264,7 +288,7 @@
 				}
 			});
 			
-			// Set message
+			// Set positions
 			FileAPI.event.on(PresetPositions, 'click', function (evt) {
 				var el = evt.target;
 
@@ -279,8 +303,35 @@
 					_applyFilter();
 				}
 			});
+			
+			// Set templates
+			FileAPI.event.on(PresetTemplates, 'click', function (evt) {
+				var el = evt.target;
+
+				if( !processing && el.tagName == 'A' ){
+					template = el.dataset.preset;
+					processing = { el: el, html: el.innerHTML };
+
+					el.parentNode.querySelector('.Active').classList.remove('Active');
+					el.innerHTML = 'Rendering&hellip;';
+					el.className = 'Active';
+
+					_applyFilter();
+				}
+			});
 
 			function _applyFilter(loading){
+				switch(template){
+					case "fb":
+						_applyFilterFb(loading);
+						break;
+					case "t":
+						_applyFilterT(loading);
+						break;
+				}
+			}
+			
+			function _applyFilterFb(loading){
 				
 				console.log("FILTER: " + filter);
 				console.log("MSG: " + msg);
@@ -289,7 +340,7 @@
 					result.innerHTML = '<div class="loader"></div>';
 				}
 				output.style.display = '';
-
+				
 				var smallDim = 0;
 				var halfDim = 0;
 				FileAPI.getInfo(file, function(err, info){
@@ -356,29 +407,40 @@
 								processedImage = cropimg;
 								console.log("CROPPED: " + smallDim + " at: " + x + "," + y);
 								
-								FileAPI.Image(processedImage)
-								.resize(504, 504, 'min')	
-								.filter(filter)
-								.get(function(resizeerr, resizeimg){
-									if(!resizeerr)
-									{
-										processedImage = resizeimg;
-										console.log("Resized: " + 504);
-										
-										FileAPI.Image(processedImage)							
-										.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
-										.get(function(oerr, oimg){
-											processedImage = oimg;
-											console.log("OVERLAY");
+									FileAPI.Image(processedImage)
+									.resize(504, 504)	
+									.filter(filter)
+									.get(function(resizeerr, resizeimg){
+										if(!resizeerr)
+										{
+											processedImage = resizeimg;
+											console.log("Resized: " + 504);
 											
-											if (msg != '') {
-												var msgfilename = "fb_" + msg + ".png"
-												FileAPI.Image(processedImage)
-												.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
-												.get(function(merr, mimg){
-													processedImage = mimg;						
-													console.log("MSG OVERLAY");
-													
+											FileAPI.Image(processedImage)							
+											.overlay([{x: 0, y: 0, w: 504, h:504, src: 'fb_base.png' }])
+											.get(function(oerr, oimg){
+												processedImage = oimg;
+												console.log("OVERLAY");
+												
+												if (msg != '') {
+													var msgfilename = "fb_" + msg + ".png"
+													FileAPI.Image(processedImage)
+													.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
+													.get(function(merr, mimg){
+														processedImage = mimg;
+														console.log("MSG OVERLAY");
+														
+														result.innerHTML = '';
+														result.appendChild(processedImage);
+
+														if( processing ){
+															processing.el.innerHTML = processing.html;
+															processing = false;
+														}
+													});
+												}
+												else
+												{											
 													result.innerHTML = '';
 													result.appendChild(processedImage);
 
@@ -386,22 +448,138 @@
 														processing.el.innerHTML = processing.html;
 														processing = false;
 													}
-												});
-											}
-											else
-											{											
-												result.innerHTML = '';
-												result.appendChild(processedImage);
-
-												if( processing ){
-													processing.el.innerHTML = processing.html;
-													processing = false;
 												}
-											}
-										});										
-									}
-								});								
-							}
+											});										
+										}
+									});	
+								}
+						});						
+					}
+				});
+			}
+			
+			function _applyFilterT(loading){
+				
+				console.log("FILTER: " + filter);
+				console.log("MSG: " + msg);
+			
+				if( loading ){
+					result.innerHTML = '<div class="loader"></div>';
+				}
+				output.style.display = '';
+				
+				var smallDim = 0;
+				var halfDim = 0;
+				FileAPI.getInfo(file, function(err, info){
+					if (!err) {
+						smallDim = info.width;
+						if (smallDim > info.height) {
+							smallDim = info.height;
+						}
+						halfDim = smallDim / 2;
+						halfDimY = smallDim / 4;
+						
+						var x = 0;
+						var y = 0;						
+						
+						switch(pos) {
+							case "tl":							
+								x = 0;
+								y = info.height - halfDim;
+								break;
+							case "tc":
+								x = (info.width / 2) - halfDim;
+								y = info.height - halfDim;
+								break;
+							case "tr":
+								x = info.width - smallDim;
+								y = info.height - halfDim;
+								break;
+							case "l":
+								x = 0;
+								y = (info.height / 2) - halfDimY;
+								break;
+							case "c":
+								x = (info.width / 2) - halfDim;
+								y = (info.height / 2) - halfDimY;
+								break;
+							case "r":
+								x = info.width - smallDim;
+								y = (info.height / 2) - halfDimY;
+								break;
+							case "bl":
+								x = 0;
+								y = 0;
+								break;
+							case "bc":
+								x = (info.width / 2) - halfDim;
+								y = 0;
+								break;
+							case "br":
+								x = info.width - smallDim;
+								y = 0
+								break;
+							default:
+								x = (info.width / 2) - halfDim;
+								y = (info.height / 2) - halfDimY;
+								break;
+						}
+						
+						var processedImage;
+						
+						FileAPI.Image(file)
+						.crop(x, y, smallDim, halfDim)
+						.get(function(croperr, cropimg){
+							if(!croperr)
+							{
+								processedImage = cropimg;
+								console.log("CROPPED: " + smallDim + " at: " + x + "," + y);
+								
+									FileAPI.Image(processedImage)
+									.resize(440, 220)	
+									.filter(filter)
+									.get(function(resizeerr, resizeimg){
+										if(!resizeerr)
+										{
+											processedImage = resizeimg;
+											
+											FileAPI.Image(processedImage)							
+											.overlay([{x: 0, y: 0, w: 440, h: 220, src: 't_base.png' }])
+											.get(function(oerr, oimg){
+												processedImage = oimg;
+												console.log("OVERLAY");
+												
+												if (msg != '') {
+													var msgfilename = "t_" + msg + ".png"
+													FileAPI.Image(processedImage)
+													.overlay([{x: 0, y: 0, w: 440, h: 220, src: msgfilename }])
+													.get(function(merr, mimg){
+														processedImage = mimg;
+														console.log("MSG OVERLAY");
+														
+														result.innerHTML = '';
+														result.appendChild(processedImage);
+
+														if( processing ){
+															processing.el.innerHTML = processing.html;
+															processing = false;
+														}
+													});
+												}
+												else
+												{											
+													result.innerHTML = '';
+													result.appendChild(processedImage);
+
+													if( processing ){
+														processing.el.innerHTML = processing.html;
+														processing = false;
+													}
+												}
+											});										
+										}
+									});	
+								}
 						});						
 					}
 				});
