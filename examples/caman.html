@@ -69,7 +69,7 @@
 		</div>
 
 		<div id="PresetFilters">
-			<a data-preset="none" class="Active">None</a>
+			<a data-preset="" class="Active">None</a>
 			<a data-preset="vintage">Vintage</a>
 			<a data-preset="lomo">Lomo</a>
 			<a data-preset="clarity">Clarity</a>
@@ -116,7 +116,7 @@
 			var
 				  file
 				, webcam // current Camera
-				, filter = 'vintage' // default filter
+				, filter = '' // default filter
 				, processing = false
 			;
 
@@ -189,8 +189,16 @@
 				}
 				output.style.display = '';
 
+				var smallDim = 0;
+				FileAPI.getInfo(file, function(err, info){
+					if (!err) {
+						console.log(info);
+						console.log(info.width);
+					}
+				});
+				
 				FileAPI.Image(file)
-					.resize(800, 600, 'max')
+					.resize(504, 504, 'max')
 					.filter(filter)
 					.get(function (err, img){
 						result.innerHTML = '';
