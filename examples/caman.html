@@ -89,7 +89,14 @@
 			<a data-preset="hemingway">Hemingway</a>
 			<a data-preset="concentrate">Concentrate</a>
 		</div>
-
+		<div id="PresetMessages">
+			<a data-preset="" class="Active">No Message</a>
+			<a data-preset="00">I AM IMPORTANT</a>
+			<a data-preset="01">I DESERVE HEALTHCARE</a>
+			<a data-preset="02">SEE ME. I MATTER.</a>
+			<a data-preset="03">I AM HUMAN, LIKE YOU.</a>
+			<a data-preset="04">LEARN. DON'T HATE.</a>
+		</div>
 	</div>
 
 	<div style="text-align: center; padding: 50px; clear: both; font-size: 20px;">
@@ -117,6 +124,7 @@
 				  file
 				, webcam // current Camera
 				, filter = '' // default filter
+				, msg = '' // default message
 				, processing = false
 			;
 
@@ -181,7 +189,22 @@
 					_applyFilter();
 				}
 			});
+			
+			// Set message
+			FileAPI.event.on(PresetMessages, 'click', function (evt) {
+				var el = evt.target;
 
+				if( !processing && el.tagName == 'A' ){
+					msg = el.dataset.preset;
+					processing = { el: el, html: el.innerHTML };
+
+					el.parentNode.querySelector('.Active').classList.remove('Active');
+					el.innerHTML = 'Rendering&hellip;';
+					el.className = 'Active';
+
+					_applyFilter();
+				}
+			}
 
 			function _applyFilter(loading){
 				if( loading ){
@@ -204,14 +227,32 @@
 						.get(function (err, img){
 							FileAPI.Image(img)
 							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
-							.get(function(oerr, oimg){								
-								result.innerHTML = '';
-								result.appendChild(oimg);
+							.get(function(oerr, oimg){
+								
+								if (msg != '') {
+									var msgfilename = "fb_" + msg + ".png"
+									FileAPI.Image(oimg)
+									.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
+									.get(function(merr, mimg){
+										result.innerHTML = '';
+										result.appendChild(mimg);
 
-								if( processing ){
-									processing.el.innerHTML = processing.html;
-									processing = false;
-								}								
+										if( processing ){
+											processing.el.innerHTML = processing.html;
+											processing = false;
+										}
+									});
+								}
+								else
+								{								
+									result.innerHTML = '';
+									result.appendChild(oimg);
+
+									if( processing ){
+										processing.el.innerHTML = processing.html;
+										processing = false;
+									}
+								}
 							});
 						});
 						
