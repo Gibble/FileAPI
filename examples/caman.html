@@ -288,20 +288,19 @@
 												processedImage = oimg;
 												console.log("NO OVERLAY");
 											}
+											
+											result.innerHTML = '';
+											result.appendChild(processedImage);
+
+											if( processing ){
+												processing.el.innerHTML = processing.html;
+												processing = false;
+											}
 										});										
 									}
 								});								
 							}
-						});
-						
-						result.innerHTML = '';
-						result.appendChild(processedImage);
-
-						if( processing ){
-							processing.el.innerHTML = processing.html;
-							processing = false;
-						}
-						
+						});						
 					}
 				});
 			}
