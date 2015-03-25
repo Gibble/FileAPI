@@ -247,12 +247,12 @@
 							smallDim = info.height;
 						}
 				
-						FileAPI.Image(file)
-						.crop(smallDim, smallDim)
+						FileAPI.Image(file)						
+						.resize(504, 504, 'min')
 						.filter(filter)
 						.get(function (err, img){
 							FileAPI.Image(img)							
-							.resize(504, 504)
+							.crop(504, 504)	
 							.overlay([{x: 0, y: 0, w: 504, h:504, src: 'facebook_base.png' }])
 							.get(function(oerr, oimg){
 								if (msg != '') {
