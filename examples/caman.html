@@ -259,6 +259,7 @@
 							if(!croperr)
 							{
 								processedImage = cropimg;
+								console.log("CROPPED: " + smallDim + " at: " + x + "," + y);
 							}
 						});
 						
@@ -269,6 +270,7 @@
 							if(!resizeerr)
 							{
 								processedImage = resizeimg;
+								console.log("Resized: " + 504);
 							}
 						});
 				
@@ -281,11 +283,14 @@
 								.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
 								.get(function(merr, mimg){
 									processedImage = mimg;
+									
+									console.log("OVERLAY");
 								});
 							}
 							else
 							{								
 								processedImage = oimg;
+								console.log("NO OVERLAY");
 							}
 						});
 						
