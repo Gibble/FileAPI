@@ -281,18 +281,27 @@
 												FileAPI.Image(processedImage)
 												.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
 												.get(function(merr, mimg){
-													processedImage = mimg;
-													
+													processedImage = mimg;						
 													console.log("MSG OVERLAY");
+													
+													result.innerHTML = '';
+													result.appendChild(processedImage);
+
+													if( processing ){
+														processing.el.innerHTML = processing.html;
+														processing = false;
+													}
 												});
 											}
-											
-											result.innerHTML = '';
-											result.appendChild(processedImage);
+											else
+											{											
+												result.innerHTML = '';
+												result.appendChild(processedImage);
 
-											if( processing ){
-												processing.el.innerHTML = processing.html;
-												processing = false;
+												if( processing ){
+													processing.el.innerHTML = processing.html;
+													processing = false;
+												}
 											}
 										});										
 									}
