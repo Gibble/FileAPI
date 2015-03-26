@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<!--
+
+
+		~~~ Демонстрация возможностей FileAPI и CamanJS ~~~
+
+
+-->
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>#TDOV - Trans Day of Visibility - March 31</title>
+
+	<meta name="viewport" content="user-scalable=no, width=400, initial-scale=0.8, maximum-scale=0.8" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+	<meta name="format-detection" content="email=no" />
+	<meta name="HandheldFriendly" content="true" />
+
+	<script>
+		var FileAPI = {
+			  debug: true
+			, media: true
+			, staticPath: '../dist/'
+		};
+	</script>
+	<script src="../dist/FileAPI.min.js"></script>
+	<script src="../plugins/caman.full.min.js"></script>
+	
+	<!-- SimpleTabs -->
+	<script type="text/javascript" src="js/simpletabs_1.3.js"></script>
+	<style type="text/css" media="screen">
+		@import "css/simpletabs.css";
+	</style>
+
+	<link rel="stylesheet" href="toolkit.css"/>
+	<style>
+		body {
+			margin: 0 auto;
+			max-width: 800px;
+			font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+
+		#PresetFilters a {
+			border-radius: 3px;
+			-webkit-transition: background-color .3s ease-out;
+			-moz-transition: background-color .3s ease-out;
+			transition: background-color .3s ease-out;
+			background-color: #368ad2;
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 8px 10px;
+			color: #f8f8f2;
+			margin: 5px;
+			border: none;
+			font-size: 13px;
+			width: 120px;
+			cursor: pointer;
+		}
+			#PresetFilters a.Active {
+				background-color: #e69751;
+			}
+			
+		#PresetMessages a {
+			border-radius: 3px;
+			-webkit-transition: background-color .3s ease-out;
+			-moz-transition: background-color .3s ease-out;
+			transition: background-color .3s ease-out;
+			background-color: #368ad2;
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 8px 10px;
+			color: #f8f8f2;
+			margin: 5px;
+			border: none;
+			font-size: 13px;
+			width: 120px;
+			cursor: pointer;
+		}
+			#PresetMessages a.Active {
+				background-color: #e69751;
+			}
+			
+		#PresetPositions a {
+			border-radius: 3px;
+			-webkit-transition: background-color .3s ease-out;
+			-moz-transition: background-color .3s ease-out;
+			transition: background-color .3s ease-out;
+			background-color: #368ad2;
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 8px 10px;
+			color: #f8f8f2;
+			margin: 5px;
+			border: none;
+			font-size: 13px;
+			width: 120px;
+			cursor: pointer;
+		}
+			#PresetPositions a.Active {
+				background-color: #e69751;
+			}
+			
+		#PresetTemplates a {
+			border-radius: 3px;
+			-webkit-transition: background-color .3s ease-out;
+			-moz-transition: background-color .3s ease-out;
+			transition: background-color .3s ease-out;
+			background-color: #368ad2;
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 8px 10px;
+			color: #f8f8f2;
+			margin: 5px;
+			border: none;
+			font-size: 13px;
+			width: 120px;
+			cursor: pointer;
+		}
+			#PresetTemplates a.Active {
+				background-color: #e69751;
+			}
+	</style>
+
+</head>
+<body>
+	<div style="margin: 0 auto; width: 504px;">
+		<img src="banner.png" align="middle">
+		<a href="#" download="TDOV_IMAGE.png" id="saveButton">SAVE TEST</a>
+	</div>
+
+	<div id="output" style="display: none; padding: 10px 20px 40px;">
+
+		<div id="PresetTemplates" style="margin: 0 auto; width: 300px;">
+			<a data-preset="fb" class="Active">Facebook</a>
+			<a data-preset="t">Twitter</a>
+		</div>	
+	
+		<div id="result" style="clear: both; text-align: center; margin: 0 auto;">
+			<div class="loader"></div>
+		</div>
+	
+	
+		
+		<div class="simpleTabs">
+			<ul class="simpleTabsNavigation" style="margin: 0 auto; width: 600px;">
+				<li><a href="#">Instructions</a></li>
+				<li><a href="#">Filters</a></li>
+				<li><a href="#">Messages</a></li>
+				<li><a href="#">Positions</a></li>
+			</ul>
+	
+	
+			<div class="simpleTabsContent" style="clear: both;">
+				<p> After choosing a filter, message, and position just right-click on the image and choose the save option. Then share it on Facebook and Twitter, and don't forget to use #TDOV</p>
+			</div>
+			<div class="simpleTabsContent" style="clear: both;">
+				<div id="PresetFilters" style="clear: both; margin: 0 auto; width: 480px;">
+					<a data-preset="" class="Active">None</a>
+					<a data-preset="vintage">Vintage</a>
+					<a data-preset="lomo">Lomo</a>
+					<a data-preset="clarity">Clarity</a>
+					<a data-preset="sinCity">Sin City</a>
+					<a data-preset="sunrise">Sunrise</a>
+					<a data-preset="crossProcess">Cross Process</a>
+					<a data-preset="orangePeel">Orange Peel</a>
+					<a data-preset="love">Love</a>
+					<a data-preset="grungy">Grungy</a>
+					<a data-preset="jarques">Jarques</a>
+					<a data-preset="pinhole">Pinhole</a>
+					<a data-preset="oldBoot">Old Boot</a>
+					<a data-preset="glowingSun">Glowing Sun</a>
+					<a data-preset="hazyDays">Hazy Days</a>
+					<a data-preset="herMajesty">Her Majesty</a>
+					<a data-preset="nostalgia">Nostalgia</a>
+					<a data-preset="hemingway">Hemingway</a>
+					<a data-preset="concentrate">Concentrate</a>
+				</div>
+			</div>
+			<br />
+			<div class="simpleTabsContent" style="clear: both; margin: 0 auto; width: 480px;">
+				<div id="PresetMessages" style="clear: both">
+					<a data-preset="" class="Active">No Message</a>
+					<a data-preset="00">I AM IMPORTANT</a>
+					<a data-preset="01">I DESERVE HEALTHCARE</a>
+					<a data-preset="02">SEE ME. I MATTER.</a>
+					<a data-preset="03">I AM HUMAN, LIKE YOU.</a>
+					<a data-preset="04">LEARN. DON'T HATE.</a>
+					<a data-preset="05">ALLY</a>
+				</div>		
+			</div>		
+			<br />
+			<div class="simpleTabsContent" style="clear: both">
+				<div id="PresetPositions" style="clear: both; width: 480px; margin: 0 auto;">
+					<a data-preset="tl">Top Left</a>
+					<a data-preset="tc">Top Center</a>
+					<a data-preset="tr">Top Right</a>
+					<a data-preset="l">Left</a>
+					<a data-preset="c" class="Active">Center</a>
+					<a data-preset="r">Right</a>
+					<a data-preset="bl">Bottom Left</a>
+					<a data-preset="bc">Bottom Center</a>
+					<a data-preset="br">Bottom Right</a>
+				</div>	
+			</div>	
+		</div>	
+	</div>
+
+	<div style="text-align: center; padding: 50px; clear: both; font-size: 20px;">
+		<div id="choose">
+			<label for="browse" class="btn">Select photo</label>
+			<input id="browse" type="file" accept="image/*" style="font-size: 20px; display: none;" />
+
+			<br/>
+			<br/>
+
+			<div id="openCam" class="btn">WebCam</div>
+		</div>
+
+		<div id="photoBooth" style="visibility: hidden; position: absolute; overflow: hidden; height: 0">
+			<div id="cam" style="border: 2px solid #80BD95; padding: 2px; width: 640px; height: 480px; margin: 0 auto;"></div>
+			<div id="shot" class="btn" style="border-radius: 100%; width: 80px; height: 80px; padding: 0; margin: 30px;"></div>
+		</div>
+	</div>
+
+	<script>
+		(function (){
+			var
+				  file
+				, webcam // current Camera
+				, filter = '' // default filter
+				, msg = '' // default message
+				, pos = "c"
+				, processedImage
+				, template = "fb"
+				, processing = false
+			;
+			
+			function Save(){
+				$(this)
+				.attr({
+					'href': processedImage,
+					'target': '_blank'
+				});
+			}
+			
+			$("#SaveButton").on('click', function(event){ Save(); console.log("SAVE"); });
+			
+			function _choose(state){
+				choose.style.display = state ? '' : 'none';
+				photoBooth.style.visibility = !state ? '' : 'hidden';
+				photoBooth.style.height = !state ? '' : '20px';
+			}
+
+			// Open PhotoBooth
+			FileAPI.event.on(openCam, 'click', function (){
+				_choose(false);
+				output.style.display = 'none';
+
+				FileAPI.Camera.publish(cam, { width: 640, height: 480 }, function (err, cam){
+					if( err ){
+						_choose(true);
+						alert(err);
+					} else {
+						webcam = cam;
+					}
+				});
+			});
+
+
+			// Create shot
+			FileAPI.event.on(shot, 'click', function (){
+				if( webcam ){
+					file = webcam.shot();
+
+					webcam.stop();
+					webcam = null;
+
+					_choose(true);
+					_applyFilter(true);
+				}
+			});
+
+
+			// Open dialog
+			FileAPI.event.on(browse, 'change', function (evt){
+				file = FileAPI.getFiles(evt)[0];
+
+				if( file ){
+					_applyFilter(true);
+				}
+			});
+
+
+			// Set filter
+			FileAPI.event.on(PresetFilters, 'click', function (evt){
+				var el = evt.target;
+
+				if( !processing && el.tagName == 'A' ){
+					filter = el.dataset.preset;
+					processing = { el: el, html: el.innerHTML };
+
+					el.parentNode.querySelector('.Active').classList.remove('Active');
+					el.innerHTML = 'Rendering&hellip;';
+					el.className = 'Active';
+
+					_applyFilter();
+				}
+			});
+			
+			// Set message
+			FileAPI.event.on(PresetMessages, 'click', function (evt) {
+				var el = evt.target;
+
+				if( !processing && el.tagName == 'A' ){
+					msg = el.dataset.preset;
+					processing = { el: el, html: el.innerHTML };
+
+					el.parentNode.querySelector('.Active').classList.remove('Active');
+					el.innerHTML = 'Rendering&hellip;';
+					el.className = 'Active';
+
+					_applyFilter();
+				}
+			});
+			
+			// Set positions
+			FileAPI.event.on(PresetPositions, 'click', function (evt) {
+				var el = evt.target;
+
+				if( !processing && el.tagName == 'A' ){
+					pos = el.dataset.preset;
+					processing = { el: el, html: el.innerHTML };
+
+					el.parentNode.querySelector('.Active').classList.remove('Active');
+					el.innerHTML = 'Rendering&hellip;';
+					el.className = 'Active';
+
+					_applyFilter();
+				}
+			});
+			
+			// Set templates
+			FileAPI.event.on(PresetTemplates, 'click', function (evt) {
+				var el = evt.target;
+
+				if( !processing && el.tagName == 'A' ){
+					template = el.dataset.preset;
+					processing = { el: el, html: el.innerHTML };
+
+					el.parentNode.querySelector('.Active').classList.remove('Active');
+					el.innerHTML = 'Rendering&hellip;';
+					el.className = 'Active';
+
+					_applyFilter();
+				}
+			});
+
+			function _applyFilter(loading){
+				switch(template){
+					case "fb":
+						_applyFilterFb(loading);
+						break;
+					case "t":
+						_applyFilterT(loading);
+						break;
+				}
+			}
+			
+			function _applyFilterFb(loading){
+				
+				console.log("FILTER: " + filter);
+				console.log("MSG: " + msg);
+			
+				if( loading ){
+					result.innerHTML = '<div class="loader"></div>';
+				}
+				output.style.display = '';
+				
+				var smallDim = 0;
+				var halfDim = 0;
+				FileAPI.getInfo(file, function(err, info){
+					if (!err) {
+						smallDim = info.width;
+						if (smallDim > info.height) {
+							smallDim = info.height;
+						}
+						halfDim = smallDim / 2;
+						
+						var x = 0;
+						var y = 0;						
+						
+						switch(pos) {
+							case "tl":
+								x = 0;
+								y = 0;
+								break;
+							case "tc":
+								x = (info.width / 2) - halfDim;
+								y = 0;
+								break;
+							case "tr":
+								x = info.width - smallDim;
+								y = 0
+								break;
+							case "l":
+								x = 0;
+								y = (info.height / 2) - halfDim;
+								break;
+							case "c":
+								x = (info.width / 2) - halfDim;
+								y = (info.height / 2) - halfDim;
+								break;
+							case "r":
+								x = info.width - smallDim;
+								y = (info.height / 2) - halfDim;
+								break;
+							case "bl":							
+								x = 0;
+								y = info.height - smallDim;
+								break;
+							case "bc":
+								x = (info.width / 2) - halfDim;
+								y = info.height - smallDim;
+								break;
+							case "br":
+								x = info.width - smallDim;
+								y = info.height - smallDim;
+								break;
+							default:
+								x = (info.width / 2) - halfDim;
+								y = (info.height / 2) - halfDim;
+								break;
+						}
+						
+						FileAPI.Image(file)
+						.crop(x, y, smallDim, smallDim)
+						.get(function(croperr, cropimg){
+							if(!croperr)
+							{
+								processedImage = cropimg;
+								console.log("CROPPED: " + smallDim + " at: " + x + "," + y);
+								
+									FileAPI.Image(processedImage)
+									.resize(504, 504)	
+									.filter(filter)
+									.get(function(resizeerr, resizeimg){
+										if(!resizeerr)
+										{
+											processedImage = resizeimg;
+											console.log("Resized: " + 504);
+											
+											FileAPI.Image(processedImage)							
+											.overlay([{x: 0, y: 0, w: 504, h:504, src: 'fb_base.png' }])
+											.get(function(oerr, oimg){
+												processedImage = oimg;
+												console.log("OVERLAY");
+												
+												if (msg != '') {
+													var msgfilename = "fb_" + msg + ".png"
+													FileAPI.Image(processedImage)
+													.overlay([{x: 0, y: 0, w: 504, h:504, src: msgfilename }])
+													.get(function(merr, mimg){
+														processedImage = mimg;
+														console.log("MSG OVERLAY");
+														
+														result.innerHTML = '';
+														result.appendChild(processedImage);
+
+														if( processing ){
+															processing.el.innerHTML = processing.html;
+															processing = false;
+														}
+													});
+												}
+												else
+												{											
+													result.innerHTML = '';
+													result.appendChild(processedImage);
+
+													if( processing ){
+														processing.el.innerHTML = processing.html;
+														processing = false;
+													}
+												}
+											});										
+										}
+									});	
+								}
+						});						
+					}
+				});
+			}
+			
+			function _applyFilterT(loading){
+				
+				console.log("FILTER: " + filter);
+				console.log("MSG: " + msg);
+			
+				if( loading ){
+					result.innerHTML = '<div class="loader"></div>';
+				}
+				output.style.display = '';
+				
+				var smallDim = 0;
+				var halfDim = 0;
+				FileAPI.getInfo(file, function(err, info){
+					if (!err) {
+						smallDim = info.width;
+						if (smallDim > info.height) {
+							smallDim = info.height;
+						}
+						halfDim = smallDim / 2;
+						halfDimY = smallDim / 4;
+						
+						var x = 0;
+						var y = 0;						
+						
+						switch(pos) {
+							case "tl":
+								x = 0;
+								y = 0;
+								break;
+							case "tc":
+								x = (info.width / 2) - halfDim;
+								y = 0;
+								break;
+							case "tr":
+								x = info.width - smallDim;
+								y = 0
+								break;
+							case "l":
+								x = 0;
+								y = (info.height / 2) - halfDimY;
+								break;
+							case "c":
+								x = (info.width / 2) - halfDim;
+								y = (info.height / 2) - halfDimY;
+								break;
+							case "r":
+								x = info.width - smallDim;
+								y = (info.height / 2) - halfDimY;
+								break;
+							case "bl":							
+								x = 0;
+								y = info.height - halfDim;
+								break;
+							case "bc":
+								x = (info.width / 2) - halfDim;
+								y = info.height - halfDim;
+								break;
+							case "br":
+								x = info.width - smallDim;
+								y = info.height - halfDim;
+								break;
+							default:
+								x = (info.width / 2) - halfDim;
+								y = (info.height / 2) - halfDimY;
+								break;
+						}
+						
+						var processedImage;
+						
+						FileAPI.Image(file)
+						.crop(x, y, smallDim, halfDim)
+						.get(function(croperr, cropimg){
+							if(!croperr)
+							{
+								processedImage = cropimg;
+								console.log("CROPPED: " + smallDim + " at: " + x + "," + y);
+								
+									FileAPI.Image(processedImage)
+									.resize(440, 220)	
+									.filter(filter)
+									.get(function(resizeerr, resizeimg){
+										if(!resizeerr)
+										{
+											processedImage = resizeimg;
+											
+											FileAPI.Image(processedImage)							
+											.overlay([{x: 0, y: 0, w: 440, h: 220, src: 't_base.png' }])
+											.get(function(oerr, oimg){
+												processedImage = oimg;
+												console.log("OVERLAY");
+												
+												if (msg != '') {
+													var msgfilename = "t_" + msg + ".png"
+													FileAPI.Image(processedImage)
+													.overlay([{x: 0, y: 0, w: 440, h: 220, src: msgfilename }])
+													.get(function(merr, mimg){
+														processedImage = mimg;
+														console.log("MSG OVERLAY");
+														
+														result.innerHTML = '';
+														result.appendChild(processedImage);
+
+														if( processing ){
+															processing.el.innerHTML = processing.html;
+															processing = false;
+														}
+													});
+												}
+												else
+												{											
+													result.innerHTML = '';
+													result.appendChild(processedImage);
+
+													if( processing ){
+														processing.el.innerHTML = processing.html;
+														processing = false;
+													}
+												}
+											});										
+										}
+									});	
+								}
+						});						
+					}
+				});
+			}
+		})();
+	</script>
+
+</body>
+</html>
