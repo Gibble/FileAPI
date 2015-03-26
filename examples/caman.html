@@ -28,6 +28,12 @@
 	</script>
 	<script src="../dist/FileAPI.min.js"></script>
 	<script src="../plugins/caman.full.min.js"></script>
+	
+	<!-- SimpleTabs -->
+	<script type="text/javascript" src="js/simpletabs_1.3.js"></script>
+	<style type="text/css" media="screen">
+		@import "css/simpletabs.css";
+	</style>
 
 	<link rel="stylesheet" href="toolkit.css"/>
 	<style>
@@ -136,48 +142,59 @@
 			<div class="loader"></div>
 		</div>
 	
-		<div id="PresetFilters" style="clear: both;">
-			<a data-preset="" class="Active">None</a>
-			<a data-preset="vintage">Vintage</a>
-			<a data-preset="lomo">Lomo</a>
-			<a data-preset="clarity">Clarity</a>
-			<a data-preset="sinCity">Sin City</a>
-			<a data-preset="sunrise">Sunrise</a>
-			<a data-preset="crossProcess">Cross Process</a>
-			<a data-preset="orangePeel">Orange Peel</a>
-			<a data-preset="love">Love</a>
-			<a data-preset="grungy">Grungy</a>
-			<a data-preset="jarques">Jarques</a>
-			<a data-preset="pinhole">Pinhole</a>
-			<a data-preset="oldBoot">Old Boot</a>
-			<a data-preset="glowingSun">Glowing Sun</a>
-			<a data-preset="hazyDays">Hazy Days</a>
-			<a data-preset="herMajesty">Her Majesty</a>
-			<a data-preset="nostalgia">Nostalgia</a>
-			<a data-preset="hemingway">Hemingway</a>
-			<a data-preset="concentrate">Concentrate</a>
-		</div>
-		<br />
-		<div id="PresetMessages" style="clear: both">
-			<a data-preset="" class="Active">No Message</a>
-			<a data-preset="00">I AM IMPORTANT</a>
-			<a data-preset="01">I DESERVE HEALTHCARE</a>
-			<a data-preset="02">SEE ME. I MATTER.</a>
-			<a data-preset="03">I AM HUMAN, LIKE YOU.</a>
-			<a data-preset="04">LEARN. DON'T HATE.</a>
-			<a data-preset="05">ALLY</a>
-		</div>		
-		<br />
-		<div id="PresetPositions" style="clear: both; width: 480px; margin: 0 auto;">
-			<a data-preset="tl">Top Left</a>
-			<a data-preset="tc">Top Center</a>
-			<a data-preset="tr">Top Right</a>
-			<a data-preset="l">Left</a>
-			<a data-preset="c" class="Active">Center</a>
-			<a data-preset="r">Right</a>
-			<a data-preset="bl">Bottom Left</a>
-			<a data-preset="bc">Bottom Center</a>
-			<a data-preset="br">Bottom Right</a>
+	
+		
+		<div class="simpleTabs">
+			<ul class="simpleTabsNavigation">
+				<li><a href="#">Filters</a></li>
+				<li><a href="#">Messages</a></li>
+				<li><a href="#">Positions</a></li>
+			</ul>
+	
+	
+			<div class="simpleTabsContent" id="PresetFilters" style="clear: both;">
+				<a data-preset="" class="Active">None</a>
+				<a data-preset="vintage">Vintage</a>
+				<a data-preset="lomo">Lomo</a>
+				<a data-preset="clarity">Clarity</a>
+				<a data-preset="sinCity">Sin City</a>
+				<a data-preset="sunrise">Sunrise</a>
+				<a data-preset="crossProcess">Cross Process</a>
+				<a data-preset="orangePeel">Orange Peel</a>
+				<a data-preset="love">Love</a>
+				<a data-preset="grungy">Grungy</a>
+				<a data-preset="jarques">Jarques</a>
+				<a data-preset="pinhole">Pinhole</a>
+				<a data-preset="oldBoot">Old Boot</a>
+				<a data-preset="glowingSun">Glowing Sun</a>
+				<a data-preset="hazyDays">Hazy Days</a>
+				<a data-preset="herMajesty">Her Majesty</a>
+				<a data-preset="nostalgia">Nostalgia</a>
+				<a data-preset="hemingway">Hemingway</a>
+				<a data-preset="concentrate">Concentrate</a>
+			</div>
+			<br />
+			<div class="simpleTabsContent" id="PresetMessages" style="clear: both">
+				<a data-preset="" class="Active">No Message</a>
+				<a data-preset="00">I AM IMPORTANT</a>
+				<a data-preset="01">I DESERVE HEALTHCARE</a>
+				<a data-preset="02">SEE ME. I MATTER.</a>
+				<a data-preset="03">I AM HUMAN, LIKE YOU.</a>
+				<a data-preset="04">LEARN. DON'T HATE.</a>
+				<a data-preset="05">ALLY</a>
+			</div>		
+			<br />
+			<div class="simpleTabsContent" id="PresetPositions" style="clear: both; width: 480px; margin: 0 auto;">
+				<a data-preset="tl">Top Left</a>
+				<a data-preset="tc">Top Center</a>
+				<a data-preset="tr">Top Right</a>
+				<a data-preset="l">Left</a>
+				<a data-preset="c" class="Active">Center</a>
+				<a data-preset="r">Right</a>
+				<a data-preset="bl">Bottom Left</a>
+				<a data-preset="bc">Bottom Center</a>
+				<a data-preset="br">Bottom Right</a>
+			</div>	
 		</div>	
 	</div>
 
