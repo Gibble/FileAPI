@@ -126,13 +126,40 @@
 			#PresetTemplates a.Active {
 				background-color: #e69751;
 			}
+			
+		#Save a {
+			border-radius: 3px;
+			-webkit-transition: background-color .3s ease-out;
+			-moz-transition: background-color .3s ease-out;
+			transition: background-color .3s ease-out;
+			background-color: #368ad2;
+			display: block;
+			float: left;
+			text-align: center;
+			padding: 8px 10px;
+			color: #f8f8f2;
+			margin: 5px;
+			border: none;
+			font-size: 13px;
+			width: 120px;
+			cursor: pointer;
+		}
+			#Save a.Active {
+				background-color: #e69751;
+			}
 	</style>
 
 </head>
 <body>
 	<div style="margin: 0 auto; width: 504px;">
 		<img src="banner.png" align="middle">
-		<a href="#" download="TDOV_IMAGE.png" id="saveButton">SAVE TEST</a>
+		
+		
+		<div id="Save">
+			<a href="#" download="TDOV_IMAGE.png">SAVE</a>
+		</div>
+		
+		
 	</div>
 
 	<div id="output" style="display: none; padding: 10px 20px 40px;">
@@ -242,13 +269,20 @@
 				, processing = false
 			;
 			
-			function Save(){
-				$(this)
-				.attr({
-					'href': processedImage,
-					'target': '_blank'
-				});
-			}
+			// Set templates
+			FileAPI.event.on(Save, 'click', function (evt) {
+				var el = evt.target;
+
+				console.log("save?");
+				
+				if( !processing && el.tagName == 'A' ){
+					
+					el.attr({
+						'href': processedImage,
+						'target': '_blank'
+					});
+				}
+			});
 			
 			$("#SaveButton").on('click', function(event){ Save(); console.log("SAVE"); });
 			
