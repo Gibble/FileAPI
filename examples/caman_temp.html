@@ -31,6 +31,8 @@
 	
 	<!-- SimpleTabs -->
 	<script type="text/javascript" src="js/simpletabs_1.3.js"></script>
+	<script type="text/javascript" src="js/FileSaver.js"></script>
+	<script type="text/javascript" src="js/canvas-toBlob.js"></script>
 	<style type="text/css" media="screen">
 		@import "css/simpletabs.css";
 	</style>
@@ -271,29 +273,14 @@
 			
 			// Save
 			FileAPI.event.on(Save, 'click', function (evt) {
-				var el = evt.target;
-
-				console.log("save0");
+				var el = evt.target;			
 				
-				var tmp_canvas = document.getElementsByTagName("canvas")[0];
-				console.log("save1");
-				
-				var dataURL = tmp_canvas.toDataURL('image/png');
-				dataURL = dataURL.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
-				
-				//if (navigator.appName == "Microsoft Internet Explorer") {
-				//}
-				
-				dataURL = dataURL.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=TDOV_IMAGE.png');
-				
-								
-				console.log("save2: " + dataURL);
-				
-				if( !processing && el.tagName == 'A' ){
+				if( !processing && el.tagName == 'A' ){					
+					var tmp_canvas = document.getElementsByTagName("canvas")[0];
 					
-					el.href = dataURL;
-					el.target = "_blank";
-					console.log("save3");
+					tmp_canvas.toBlob(function(blob){
+						saveAs(blob, "TDOV_IMAGE.png");
+					});
 				}
 			});
 						
