@@ -355,17 +355,17 @@
 						var y = 0;						
 						
 						switch(pos) {
-							case "tl":							
+							case "tl":
 								x = 0;
-								y = info.height - smallDim;
+								y = 0;
 								break;
 							case "tc":
 								x = (info.width / 2) - halfDim;
-								y = info.height - smallDim;
+								y = 0;
 								break;
 							case "tr":
 								x = info.width - smallDim;
-								y = info.height - smallDim;
+								y = 0
 								break;
 							case "l":
 								x = 0;
@@ -379,17 +379,17 @@
 								x = info.width - smallDim;
 								y = (info.height / 2) - halfDim;
 								break;
-							case "bl":
+							case "bl":							
 								x = 0;
-								y = 0;
+								y = info.height - smallDim;
 								break;
 							case "bc":
 								x = (info.width / 2) - halfDim;
-								y = 0;
+								y = info.height - smallDim;
 								break;
 							case "br":
 								x = info.width - smallDim;
-								y = 0
+								y = info.height - smallDim;
 								break;
 							default:
 								x = (info.width / 2) - halfDim;
@@ -483,17 +483,17 @@
 						var y = 0;						
 						
 						switch(pos) {
-							case "tl":							
+							case "tl":
 								x = 0;
-								y = info.height - halfDim;
+								y = 0;
 								break;
 							case "tc":
 								x = (info.width / 2) - halfDim;
-								y = info.height - halfDim;
+								y = 0;
 								break;
 							case "tr":
 								x = info.width - smallDim;
-								y = info.height - halfDim;
+								y = 0
 								break;
 							case "l":
 								x = 0;
@@ -507,17 +507,17 @@
 								x = info.width - smallDim;
 								y = (info.height / 2) - halfDimY;
 								break;
-							case "bl":
+							case "bl":							
 								x = 0;
-								y = 0;
+								y = info.height - halfDim;
 								break;
 							case "bc":
 								x = (info.width / 2) - halfDim;
-								y = 0;
+								y = info.height - halfDim;
 								break;
 							case "br":
 								x = info.width - smallDim;
-								y = 0
+								y = info.height - halfDim;
 								break;
 							default:
 								x = (info.width / 2) - halfDim;
