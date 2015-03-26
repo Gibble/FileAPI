@@ -269,16 +269,19 @@
 				, processing = false
 			;
 			
-			// Set templates
+			// Save
 			FileAPI.event.on(Save, 'click', function (evt) {
 				var el = evt.target;
 
 				console.log("save?");
 				
+				var tmp_canvas = document.getElementsByTagName("canvas")[0];
+				var dataURL = tmp_canvas.toDataURL("application/octet-stream");
+				
 				if( !processing && el.tagName == 'A' ){
 					
 					el.attr({
-						'href': processedImage,
+						'href': dataURL,
 						'target': '_blank'
 					});
 				}
