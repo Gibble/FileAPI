@@ -69,7 +69,7 @@
 			-webkit-transition: background-color .3s ease-out;
 			-moz-transition: background-color .3s ease-out;
 			transition: background-color .3s ease-out;
-			background-color: #FF8AD2;
+			background-color: #368ad2;
 			display: block;
 			float: left;
 			text-align: center;
@@ -82,7 +82,7 @@
 			cursor: pointer;
 		}
 			#PresetMessages a.Active {
-				background-color: #199751;
+				background-color: #e69751;
 			}
 			
 		#PresetPositions a {
@@ -90,7 +90,7 @@
 			-webkit-transition: background-color .3s ease-out;
 			-moz-transition: background-color .3s ease-out;
 			transition: background-color .3s ease-out;
-			background-color: #FF8AD2;
+			background-color: #368ad2;
 			display: block;
 			float: left;
 			text-align: center;
@@ -103,7 +103,7 @@
 			cursor: pointer;
 		}
 			#PresetPositions a.Active {
-				background-color: #199751;
+				background-color: #e69751;
 			}
 			
 		#PresetTemplates a {
@@ -111,7 +111,7 @@
 			-webkit-transition: background-color .3s ease-out;
 			-moz-transition: background-color .3s ease-out;
 			transition: background-color .3s ease-out;
-			background-color: #FF8AD2;
+			background-color: #368ad2;
 			display: block;
 			float: left;
 			text-align: center;
@@ -124,7 +124,7 @@
 			cursor: pointer;
 		}
 			#PresetTemplates a.Active {
-				background-color: #199751;
+				background-color: #e69751;
 			}
 	</style>
 
@@ -133,7 +133,7 @@
 
 	<div id="output" style="display: none; padding: 10px 20px 40px;">
 
-		<div id="PresetTemplates">
+		<div id="PresetTemplates" style="margin: 0 auto; width: 480px;">
 			<a data-preset="fb" class="Active">Facebook</a>
 			<a data-preset="t">Twitter</a>
 		</div>	
@@ -145,15 +145,19 @@
 	
 		
 		<div class="simpleTabs">
-			<ul class="simpleTabsNavigation">
+			<ul class="simpleTabsNavigation" style="margin: 0 auto; width: 480px;">
+				<li><a href="#">Instructions</a></li>
 				<li><a href="#">Filters</a></li>
 				<li><a href="#">Messages</a></li>
 				<li><a href="#">Positions</a></li>
 			</ul>
 	
 	
-			<div class="simpleTabsContent" id="PresetFilters" style="clear: both;">
-				<div id="PresetFilters" style="clear: both;">
+			<div class="simpleTabsContent" style="clear: both;">
+				<p> After choosing a filter, message, and position just right-click on the image and choose the save option. Then share it on Facebook and Twitter, and don't forget to use #TDOV</p>
+			</div>
+			<div class="simpleTabsContent" style="clear: both;">
+				<div id="PresetFilters" style="clear: both; margin: 0 auto; width: 480px;">
 					<a data-preset="" class="Active">None</a>
 					<a data-preset="vintage">Vintage</a>
 					<a data-preset="lomo">Lomo</a>
@@ -176,7 +180,7 @@
 				</div>
 			</div>
 			<br />
-			<div class="simpleTabsContent" style="clear: both">
+			<div class="simpleTabsContent" style="clear: both; margin: 0 auto; width: 480px;">
 				<div id="PresetMessages" style="clear: both">
 					<a data-preset="" class="Active">No Message</a>
 					<a data-preset="00">I AM IMPORTANT</a>
