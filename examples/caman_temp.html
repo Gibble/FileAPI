@@ -278,15 +278,16 @@
 				var tmp_canvas = document.getElementsByTagName("canvas")[0];
 				console.log("save1");
 				
-				var dataURL = tmp_canvas.toDataURL("application/octet-stream");
+				var dataURL = tmp_canvas.toDataURL('image/png');
+				
+				dataURL.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+				
 				console.log("save2: " + dataURL);
 				
 				if( !processing && el.tagName == 'A' ){
 					
-					el.attr({
-						'href': dataURL,
-						'target': '_blank'
-					});
+					el.href = dataURL;
+					el.target = "_blank";
 					console.log("save3");
 				}
 			});
