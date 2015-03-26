@@ -273,10 +273,13 @@
 			FileAPI.event.on(Save, 'click', function (evt) {
 				var el = evt.target;
 
-				console.log("save?");
+				console.log("save0");
 				
 				var tmp_canvas = document.getElementsByTagName("canvas")[0];
+				console.log("save1");
+				
 				var dataURL = tmp_canvas.toDataURL("application/octet-stream");
+				console.log("save2: " + dataURL);
 				
 				if( !processing && el.tagName == 'A' ){
 					
@@ -284,6 +287,7 @@
 						'href': dataURL,
 						'target': '_blank'
 					});
+					console.log("save3");
 				}
 			});
 						
