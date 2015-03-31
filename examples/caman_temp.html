@@ -153,6 +153,15 @@
 
 </head>
 <body>
+	<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=820237101390182&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 	<div id="output" style="display: none; padding: 10px 20px 40px;">	
 	
 		<div id="result" style="clear: both; text-align: center; margin: 0 auto;">
@@ -233,6 +242,24 @@
 	<div style="clear: both; margin: 0 auto; width: 504px;">
 		<br />
 		<img src="banner.png" align="middle">
+		
+		<div style="clear: both; margin: 0 auto; width: 240px;">
+			<br />
+			<div class="fb-share-button" data-href="http://bit.do/tdov" data-layout="button_count"></div>
+			
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bit.do/tdov" data-text="Show your support for Trans Day of Visibility!" data-size="large" data-hashtags="TDOV">Tweet</a>
+			<script>
+				!function(d,s,id){
+					var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+					if(!d.getElementById(id)){
+						js=d.createElement(s);
+						js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+						fjs.parentNode.insertBefore(js,fjs);
+					}
+				}(document, 'script', 'twitter-wjs');
+			</script>
+		</div>
+		
 		<p>Trans* or Ally, show your support.</p>
 		<p> Just choose a picture, a template, select a message and save it to share on Facebook and Twitter, and don't forget to use #TDOV.</p>
 		<p>This site should work in most modern browsers, if you're having trouble saving try <b>Right-Clicking</b> on the image and choosing the <b>Save image as</b> options.</p>
